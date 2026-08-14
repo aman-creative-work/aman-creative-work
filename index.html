@@ -1,147 +1,445 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Creative Design Services</title>
-<style>
-*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f6f7fb;color:#171717}
-header{background:#111827;color:#fff;text-align:center;padding:34px 18px}header h1{margin:0 0 8px;font-size:28px}header p{margin:0;color:#d1d5db}
-.wrap{max-width:950px;margin:auto;padding:18px}.title{font-size:21px;margin:25px 0 13px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
-.card,.box{background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,.04)}
-.card h3{margin:0 0 10px}.card button,.serviceBtn,.submit{width:100%;border:0;border-radius:9px;padding:12px;font-weight:700;cursor:pointer}
-.card button{background:#111827;color:#fff}
-#step2,#step3{display:none}.back{background:#e5e7eb!important;color:#111!important;margin-bottom:10px}
-.serviceGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}
-.serviceBtn{background:#fff;border:1px solid #d1d5db;color:#111;text-align:left}
-.serviceBtn:hover{border-color:#111827}.serviceBtn span{float:right;font-weight:700}
-.packageGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}.package{border:1px solid #ddd;border-radius:12px;padding:14px;background:#fff}.package button{margin-top:10px}
-label{display:block;font-weight:700;margin:12px 0 6px}input,textarea,select{width:100%;padding:12px;border:1px solid #d1d5db;border-radius:9px;font-size:15px}textarea{min-height:105px}
-.submit{background:#25D366;color:#fff;font-size:16px;margin-top:15px}.small{font-size:13px;color:#6b7280}
-footer{text-align:center;padding:25px;color:#777}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative Design Services</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom Styles */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f8fafc;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .view-section {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        .view-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .tap-card:active {
+            transform: scale(0.97);
+            transition: transform 0.1s;
+        }
+    </style>
 </head>
-<body>
-<header>
-<h1>🎨 Creative Design Services</h1>
-<p>Logo • Poster • Thumbnail • Social Media • Business Designs</p>
-</header>
+<body class="text-slate-800 pb-20">
 
-<div class="wrap">
-<section id="step1">
-<h2 class="title">1. अपनी Category चुनें</h2>
-<div class="grid" id="categories"></div>
-</section>
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-md mx-auto px-4 py-4 flex items-center justify-center relative">
+            <button id="backBtn" class="absolute left-4 text-slate-500 hover:text-blue-600 hidden p-2" onclick="goBack()">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+            </button>
+            <h1 class="text-xl font-bold text-blue-600 tracking-tight">Creative Design Services</h1>
+        </div>
+    </header>
 
-<section id="step2" class="box">
-<button class="back" onclick="backToCategories()">← Category बदलें</button>
-<h2 class="title" id="categoryTitle"></h2>
-<p class="small">अब बताइए आपको इस category में क्या बनवाना है:</p>
-<div class="serviceGrid" id="services"></div>
-</section>
+    <!-- Main Container -->
+    <main class="max-w-md mx-auto px-4 mt-6">
 
-<section id="step3" class="box">
-<button class="back" onclick="backToServices()">← Design बदलें</button>
-<h2 class="title">3. अपनी Design की जानकारी दें</h2>
-<p class="small" id="chosen"></p>
+        <!-- STEP 1: Categories View -->
+        <div id="view-categories" class="view-section active">
+            <div class="text-center mb-6">
+                <h2 class="text-2xl font-bold text-slate-900">Choose Your Business</h2>
+                <p class="text-slate-500 text-sm mt-1">Select your category to see our design services</p>
+            </div>
 
-<label>आपका Mobile Number / Gmail ID</label>
-<input id="contact" placeholder="Mobile number या Gmail ID">
+            <!-- Categories Grid -->
+            <div id="categories-grid" class="grid grid-cols-2 gap-3 sm:gap-4">
+                <!-- Data injected via JS -->
+            </div>
 
-<label>Design में क्या चाहिए?</label>
-<textarea id="details" placeholder="नाम, दुकान/बिजनेस का नाम, text, colour, photo, size या जैसा design चाहिए वह लिखें..."></textarea>
+            <!-- Special Packages Section -->
+            <div class="mt-10 mb-6">
+                <div class="flex items-center gap-2 mb-4">
+                    <span class="text-xl">🔥</span>
+                    <h2 class="text-xl font-bold text-slate-900">Special Packages</h2>
+                </div>
+                <div id="packages-list" class="space-y-4">
+                    <!-- Data injected via JS -->
+                </div>
+            </div>
+        </div>
 
-<button class="submit" onclick="sendWhatsApp()">WhatsApp पर भेजें</button>
-<p class="small">आपकी जानकारी WhatsApp message के रूप में भेजी जाएगी।</p>
-</section>
+        <!-- STEP 2: Services View -->
+        <div id="view-services" class="view-section">
+            <div class="mb-6">
+                <span id="selected-category-title" class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded mb-2">Category Name</span>
+                <h2 class="text-2xl font-bold text-slate-900">Select a Service</h2>
+            </div>
 
-<h2 class="title">🔥 Packages</h2>
-<div class="packageGrid">
-<div class="package"><b>Starter</b><h2>₹199</h2>3 Designs<br>कोई भी Category<br>1 Revision<button class="serviceBtn" onclick="choosePackage('Starter Package ₹199')">यह Package चुनें</button></div>
-<div class="package"><b>Business</b><h2>₹499</h2>10 Designs<br>Poster + Post + Status<br>2 Revisions<button class="serviceBtn" onclick="choosePackage('Business Package ₹499')">यह Package चुनें</button></div>
-<div class="package"><b>Monthly</b><h2>₹699</h2>15 Designs<br>Poster + Post + Status + Reels Cover<br>पूरे महीने के लिए<button class="serviceBtn" onclick="choosePackage('Monthly Package ₹699')">यह Package चुनें</button></div>
-</div>
-</div>
+            <div id="services-list" class="space-y-3">
+                <!-- Data injected via JS -->
+            </div>
+        </div>
 
-<footer>© 2026 Creative Design Services</footer>
+        <!-- STEP 3: Form View -->
+        <div id="view-form" class="view-section">
+            <div class="text-center mb-6">
+                <h2 class="text-2xl font-bold text-slate-900">Customer Details</h2>
+                <p class="text-slate-500 text-sm mt-1">Enter details to send requirement on WhatsApp</p>
+            </div>
 
-<script>
-const WHATSAPP_NUMBER="91XXXXXXXXXX";
+            <!-- Order Summary -->
+            <div class="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-6">
+                <h3 class="text-sm font-semibold text-blue-800 mb-3 border-b border-blue-200 pb-2">Order Summary</h3>
+                <div class="flex justify-between items-center mb-1">
+                    <span class="text-slate-600 text-sm">Category:</span>
+                    <span id="summary-category" class="font-medium text-slate-900">...</span>
+                </div>
+                <div class="flex justify-between items-center mb-1">
+                    <span class="text-slate-600 text-sm">Service:</span>
+                    <span id="summary-service" class="font-medium text-slate-900 text-right max-w-[150px] leading-tight">...</span>
+                </div>
+                <div class="flex justify-between items-center mt-3 pt-2 border-t border-blue-200">
+                    <span class="font-bold text-slate-900">Total Price:</span>
+                    <span id="summary-price" class="text-lg font-bold text-blue-600">₹0</span>
+                </div>
+            </div>
 
-const data={
-"💇 Salon":[["Poster","₹79"],["Offer/Festival Poster","₹99"],["Instagram Post","₹59"],["Story/WhatsApp Status","₹49"],["Rate Card","₹149"],["Logo","₹199"],["Visiting Card","₹99"],["Monthly 10 Designs","₹499"]],
-"👕 Clothing Shop":[["Product Post","₹59"],["Sale/Offer Poster","₹99"],["Festival Poster","₹99"],["WhatsApp Status","₹49"],["Catalogue","₹299"],["Logo","₹199"],["Visiting Card","₹99"],["Monthly 10 Designs","₹499"]],
-"📸 Photographer":[["Photography Poster","₹99"],["Wedding/Pre-Wedding Poster","₹149"],["Package/Rate Card","₹149"],["Instagram Post","₹79"],["Reels Cover","₹59"],["WhatsApp Status","₹49"],["Logo","₹299"],["Visiting Card","₹99"],["Monthly 10 Designs","₹699"]],
-"💄 Makeup Artist":[["Makeup Poster","₹99"],["Bridal Package","₹149"],["Offer Poster","₹99"],["Instagram Post","₹59"],["Story/Status","₹49"],["Reels Cover","₹59"],["Logo","₹199"],["Visiting Card","₹99"],["Price List","₹149"],["Monthly 10 Designs","₹499"]],
-"🍔 Restaurant / Café":[["Food Post","₹59"],["Offer Poster","₹99"],["Combo Poster","₹99"],["Festival Poster","₹99"],["WhatsApp Status","₹49"],["Menu Card","₹199"],["Logo","₹199"],["Visiting Card","₹99"],["Food Catalogue","₹299"],["Monthly 15 Designs","₹699"]],
-"🏋️ Gym":[["Offer Poster","₹99"],["Membership Poster","₹99"],["Transformation Post","₹79"],["Instagram Post","₹59"],["Story/Status","₹49"],["Rate Card","₹149"],["Logo","₹199"],["Visiting Card","₹99"],["Membership Card","₹99"],["Monthly 10 Designs","₹499"]],
-"📚 Coaching":[["Admission Poster","₹99"],["New Batch Poster","₹99"],["Result/Topper Poster","₹79"],["Instagram Post","₹59"],["WhatsApp Status","₹49"],["Flyer","₹149"],["Logo","₹199"],["Admission Form","₹149"],["Banner/Flex","₹199"],["Monthly 10 Designs","₹499"]],
-"🎥 Local Creator / YouTuber":[["YouTube Thumbnail","₹59"],["Premium Thumbnail","₹99"],["Shorts/Reels Cover","₹49"],["YouTube Banner","₹149"],["Channel Logo","₹199"],["Video Promotion Poster","₹79"],["Profile Picture","₹99"],["Instagram Post","₹59"],["Monthly 10 Thumbnails","₹499"],["Monthly 20 Thumbnails","₹799"]],
-"📱 Mobile Shop":[["Mobile Offer Poster","₹99"],["New Mobile Post","₹79"],["EMI/Exchange Poster","₹99"],["Festival Sale Poster","₹99"],["WhatsApp Status","₹49"],["Product Catalogue","₹299"],["Logo","₹199"],["Visiting Card","₹99"],["Price List","₹149"],["Banner/Flex","₹199"],["Monthly 15 Designs","₹699"]]
-};
+            <!-- Form -->
+            <form id="orderForm" onsubmit="submitForm(event)" class="space-y-4 bg-white p-5 rounded-xl shadow-sm border border-slate-100">
+                
+                <div>
+                    <label for="contactInfo" class="block text-sm font-medium text-slate-700 mb-1">Mobile Number / Gmail ID *</label>
+                    <input type="text" id="contactInfo" required placeholder="Enter number or email" 
+                        class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors">
+                </div>
 
-let selectedCategory="",selectedService="",selectedPrice="";
+                <div>
+                    <label for="designReq" class="block text-sm font-medium text-slate-700 mb-1">आपको जैसा Design चाहिए, उसके बारे में बताएं *</label>
+                    <textarea id="designReq" required rows="4" placeholder="Example: Mujhe simple black and gold logo chahiye. Name: XYZ Salon." 
+                        class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"></textarea>
+                </div>
 
-const categories=document.getElementById("categories");
-Object.keys(data).forEach(cat=>{
-const c=document.createElement("div");c.className="card";
-c.innerHTML=`<h3>${cat}</h3><p class="small">${data[cat].length} services available</p><button onclick="chooseCategory('${cat.replace(/'/g,"\\'")}')">Category चुनें →</button>`;
-categories.appendChild(c);
-});
+                <div>
+                    <label for="extraInfo" class="block text-sm font-medium text-slate-700 mb-1">Additional Information (Optional)</label>
+                    <input type="text" id="extraInfo" placeholder="Any specific colours, text, or photos?" 
+                        class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors">
+                </div>
 
-function chooseCategory(cat){
-selectedCategory=cat;
-document.getElementById("categoryTitle").textContent=cat;
-const box=document.getElementById("services");box.innerHTML="";
-data[cat].forEach(([name,price])=>{
-const b=document.createElement("button");b.className="serviceBtn";
-b.innerHTML=`${name}<span>${price}</span>`;
-b.onclick=()=>chooseService(name,price);
-box.appendChild(b);
-});
-document.getElementById("step1").style.display="none";
-document.getElementById("step2").style.display="block";
-window.scrollTo({top:0,behavior:"smooth"});
-}
-function chooseService(name,price){
-selectedService=name;selectedPrice=price;
-document.getElementById("chosen").textContent=`Category: ${selectedCategory}  •  Design: ${name}  •  Price: ${price}`;
-document.getElementById("step2").style.display="none";
-document.getElementById("step3").style.display="block";
-window.scrollTo({top:0,behavior:"smooth"});
-}
-function choosePackage(name){
-selectedCategory="Package";selectedService=name;selectedPrice="";
-document.getElementById("chosen").textContent=`Selected: ${name}`;
-document.getElementById("step1").style.display="none";
-document.getElementById("step2").style.display="none";
-document.getElementById("step3").style.display="block";
-window.scrollTo({top:0,behavior:"smooth"});
-}
-function backToCategories(){
-document.getElementById("step2").style.display="none";
-document.getElementById("step1").style.display="block";
-window.scrollTo({top:0,behavior:"smooth"});
-}
-function backToServices(){
-document.getElementById("step3").style.display="none";
-document.getElementById("step2").style.display="block";
-window.scrollTo({top:0,behavior:"smooth"});
-}
-function sendWhatsApp(){
-if(WHATSAPP_NUMBER.includes("X")){alert("पहले code में अपना WhatsApp number डालें।");return}
-const contact=document.getElementById("contact").value.trim(),details=document.getElementById("details").value.trim();
-if(!contact||!details){alert("Mobile/Gmail और Design की जानकारी भरें।");return}
-const text=`Hello, mujhe design banwana hai.
+                <button type="submit" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3.5 px-4 rounded-lg flex items-center justify-center gap-2 tap-card mt-2 shadow-md shadow-green-200 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
+                    </svg>
+                    WhatsApp पर भेजें
+                </button>
+            </form>
+        </div>
 
-Category: ${selectedCategory}
-Design: ${selectedService}
-Price: ${selectedPrice||"Package"}
-Mobile/Gmail: ${contact}
-Details: ${details}`;
-window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`,"_blank");
-}
-</script>
+    </main>
+
+    <!-- Floating WhatsApp Icon -->
+    <a href="https://wa.me/919926107490?text=Hello,%20mujhe%20design%20services%20ke%20baare%20mein%20jaanna%20hai" target="_blank" class="fixed bottom-6 right-6 bg-[#25D366] text-white p-4 rounded-full shadow-lg hover:bg-green-600 hover:scale-110 transition-transform z-50 flex items-center justify-center tap-card">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
+        </svg>
+    </a>
+
+    <script>
+        // WhatsApp Number Configuration
+        const WHATSAPP_NUMBER = "919926107490"; 
+        
+        // Categories and Services Data
+        const categories = [
+            { id: "salon", icon: "💇", name: "Salon", services: [
+                { name: "Poster", price: 79 },
+                { name: "Offer/Festival Poster", price: 99 },
+                { name: "Instagram Post", price: 59 },
+                { name: "Story/WhatsApp Status", price: 49 },
+                { name: "Rate Card", price: 149 },
+                { name: "Logo", price: 199 },
+                { name: "Visiting Card", price: 99 },
+                { name: "Monthly 10 Designs", price: 499 }
+            ]},
+            { id: "clothing", icon: "👕", name: "Clothing Shop", services: [
+                { name: "Product Post", price: 59 },
+                { name: "Sale/Offer Poster", price: 99 },
+                { name: "Festival Poster", price: 99 },
+                { name: "WhatsApp Status", price: 49 },
+                { name: "Catalogue", price: 299 },
+                { name: "Logo", price: 199 },
+                { name: "Visiting Card", price: 99 },
+                { name: "Monthly 10 Designs", price: 499 }
+            ]},
+            { id: "photographer", icon: "📸", name: "Photographer", services: [
+                { name: "Photography Poster", price: 99 },
+                { name: "Wedding/Pre-Wedding Poster", price: 149 },
+                { name: "Package/Rate Card", price: 149 },
+                { name: "Instagram Post", price: 79 },
+                { name: "Reels Cover", price: 59 },
+                { name: "WhatsApp Status", price: 49 },
+                { name: "Logo", price: 299 },
+                { name: "Visiting Card", price: 99 },
+                { name: "Monthly 10 Designs", price: 699 }
+            ]},
+            { id: "makeup", icon: "💄", name: "Makeup Artist", services: [
+                { name: "Makeup Poster", price: 99 },
+                { name: "Bridal Package", price: 149 },
+                { name: "Offer Poster", price: 99 },
+                { name: "Instagram Post", price: 59 },
+                { name: "Story/Status", price: 49 },
+                { name: "Reels Cover", price: 59 },
+                { name: "Logo", price: 199 },
+                { name: "Visiting Card", price: 99 },
+                { name: "Price List", price: 149 },
+                { name: "Monthly 10 Designs", price: 499 }
+            ]},
+            { id: "restaurant", icon: "🍔", name: "Restaurant / Café", services: [
+                { name: "Food Post", price: 59 },
+                { name: "Offer Poster", price: 99 },
+                { name: "Combo Poster", price: 99 },
+                { name: "Festival Poster", price: 99 },
+                { name: "WhatsApp Status", price: 49 },
+                { name: "Menu Card", price: 199 },
+                { name: "Logo", price: 199 },
+                { name: "Visiting Card", price: 99 },
+                { name: "Food Catalogue", price: 299 },
+                { name: "Monthly 15 Designs", price: 699 }
+            ]},
+            { id: "gym", icon: "🏋️", name: "Gym", services: [
+                { name: "Offer Poster", price: 99 },
+                { name: "Membership Poster", price: 99 },
+                { name: "Transformation Post", price: 79 },
+                { name: "Instagram Post", price: 59 },
+                { name: "Story/Status", price: 49 },
+                { name: "Rate Card", price: 149 },
+                { name: "Logo", price: 199 },
+                { name: "Visiting Card", price: 99 },
+                { name: "Membership Card", price: 99 },
+                { name: "Monthly 10 Designs", price: 499 }
+            ]},
+            { id: "coaching", icon: "📚", name: "Coaching", services: [
+                { name: "Admission Poster", price: 99 },
+                { name: "New Batch Poster", price: 99 },
+                { name: "Result/Topper Poster", price: 79 },
+                { name: "Instagram Post", price: 59 },
+                { name: "WhatsApp Status", price: 49 },
+                { name: "Flyer", price: 149 },
+                { name: "Logo", price: 199 },
+                { name: "Admission Form", price: 149 },
+                { name: "Banner/Flex", price: 199 },
+                { name: "Monthly 10 Designs", price: 499 }
+            ]},
+            { id: "creator", icon: "🎥", name: "Local Creator", services: [
+                { name: "YouTube Thumbnail", price: 59 },
+                { name: "Premium Thumbnail", price: 99 },
+                { name: "Shorts/Reels Cover", price: 49 },
+                { name: "YouTube Banner", price: 149 },
+                { name: "Channel Logo", price: 199 },
+                { name: "Video Promotion Poster", price: 79 },
+                { name: "Profile Picture", price: 99 },
+                { name: "Instagram Post", price: 59 },
+                { name: "Monthly 10 Thumbnails", price: 499 },
+                { name: "Monthly 20 Thumbnails", price: 799 }
+            ]},
+            { id: "mobile", icon: "📱", name: "Mobile Shop", services: [
+                { name: "Mobile Offer Poster", price: 99 },
+                { name: "New Mobile Post", price: 79 },
+                { name: "EMI/Exchange Poster", price: 99 },
+                { name: "Festival Sale Poster", price: 99 },
+                { name: "WhatsApp Status", price: 49 },
+                { name: "Product Catalogue", price: 299 },
+                { name: "Logo", price: 199 },
+                { name: "Visiting Card", price: 99 },
+                { name: "Price List", price: 149 },
+                { name: "Banner/Flex", price: 199 },
+                { name: "Monthly 15 Designs", price: 699 }
+            ]}
+        ];
+
+        const specialPackages = [
+            { 
+                name: "STARTER", price: 199, 
+                features: ["3 Designs", "Any Category", "1 Revision"]
+            },
+            { 
+                name: "BUSINESS", price: 499, 
+                features: ["10 Designs", "Poster + Post + Status", "2 Revisions"]
+            },
+            { 
+                name: "MONTHLY", price: 699, 
+                features: ["15 Designs", "Poster + Post + Status + Reels Cover", "For the whole month"]
+            }
+        ];
+
+        // State Management
+        let currentStep = 1;
+        let orderData = {
+            category: "",
+            service: "",
+            price: 0,
+            isPackage: false
+        };
+
+        // Initialization
+        function init() {
+            renderCategories();
+            renderPackages();
+            updateView();
+        }
+
+        function renderCategories() {
+            const grid = document.getElementById("categories-grid");
+            grid.innerHTML = categories.map(cat => `
+                <div onclick="selectCategory('${cat.id}')" 
+                     class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex flex-col items-center justify-center gap-2 tap-card cursor-pointer hover:border-blue-400 hover:shadow-md transition-all">
+                    <span class="text-3xl">${cat.icon}</span>
+                    <span class="text-sm font-semibold text-slate-800 text-center">${cat.name}</span>
+                </div>
+            `).join('');
+        }
+
+        function renderPackages() {
+            const list = document.getElementById("packages-list");
+            list.innerHTML = specialPackages.map(pkg => `
+                <div class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl p-5 text-white shadow-lg relative overflow-hidden">
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="text-lg font-bold text-blue-300 tracking-wider">${pkg.name}</h3>
+                        <span class="text-xl font-bold bg-white/20 px-3 py-1 rounded-full">₹${pkg.price}</span>
+                    </div>
+                    <ul class="space-y-1.5 mb-5 text-sm text-slate-300">
+                        ${pkg.features.map(f => `<li class="flex items-center gap-2"><svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> ${f}</li>`).join('')}
+                    </ul>
+                    <button onclick="selectPackage('${pkg.name}', ${pkg.price})" 
+                            class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2.5 rounded-lg tap-card transition-colors">
+                        Choose Package
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function renderServices(categoryId) {
+            const category = categories.find(c => c.id === categoryId);
+            document.getElementById("selected-category-title").innerHTML = `${category.icon} ${category.name}`;
+            
+            const list = document.getElementById("services-list");
+            list.innerHTML = category.services.map(srv => `
+                <div onclick="selectService('${srv.name}', ${srv.price})" 
+                     class="bg-white rounded-xl border border-slate-200 p-4 flex justify-between items-center tap-card cursor-pointer hover:border-blue-400 hover:bg-blue-50 transition-all">
+                    <div class="flex-1">
+                        <h4 class="font-semibold text-slate-800">${srv.name}</h4>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <span class="font-bold text-blue-600 text-lg">₹${srv.price}</span>
+                        <div class="bg-slate-100 p-2 rounded-lg text-slate-500">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function selectCategory(categoryId) {
+            const category = categories.find(c => c.id === categoryId);
+            orderData.category = category.name;
+            orderData.isPackage = false;
+            
+            renderServices(categoryId);
+            currentStep = 2;
+            updateView();
+        } function selectService(serviceName, price) {
+            orderData.service = serviceName;
+            orderData.price = price;
+            
+            prepareForm();
+            currentStep = 3;
+            updateView();
+        }
+
+        function selectPackage(packageName, price) {
+            orderData.category = "Special Package";
+            orderData.service = packageName + " Package";
+            orderData.price = price;
+            orderData.isPackage = true;
+            
+            prepareForm();
+            currentStep = 3;
+            updateView();
+        }
+
+        function prepareForm() {
+            document.getElementById("summary-category").textContent = orderData.category;
+            document.getElementById("summary-service").textContent = orderData.service;
+            document.getElementById("summary-price").textContent = `₹${orderData.price}`;
+        }
+
+        function goBack() {
+            if (currentStep === 3) {
+                currentStep = orderData.isPackage ? 1 : 2;
+            } else if (currentStep === 2) {
+                currentStep = 1;
+            }
+            updateView();
+        }
+
+        function updateView() {
+            document.getElementById("view-categories").classList.remove("active");
+            document.getElementById("view-services").classList.remove("active");
+            document.getElementById("view-form").classList.remove("active");
+            
+            const backBtn = document.getElementById("backBtn");
+            if (currentStep === 1) {
+                backBtn.classList.add("hidden");
+                document.getElementById("view-categories").classList.add("active");
+                window.scrollTo(0, 0);
+            } else if (currentStep === 2) {
+                backBtn.classList.remove("hidden");
+                document.getElementById("view-services").classList.add("active");
+                window.scrollTo(0, 0);
+            } else if (currentStep === 3) {
+                backBtn.classList.remove("hidden");
+                document.getElementById("view-form").classList.add("active");
+                window.scrollTo(0, 0);
+            }
+        }
+
+        function submitForm(event) {
+            event.preventDefault();
+            
+            const contact = document.getElementById("contactInfo").value.trim();
+            const requirements = document.getElementById("designReq").value.trim();
+            const extraInfo = document.getElementById("extraInfo").value.trim();
+
+            if (!contact || !requirements) {
+                alert("Please fill the required fields.");
+                return;
+            }
+
+            let message = `Hello, mujhe design banwana hai.\n\n`;
+            message += `Category: ${orderData.category}\n`;
+            message += `Design: ${orderData.service}\n`;
+            message += `Price: ₹${orderData.price}\n\n`;
+            message += `Mobile/Gmail: ${contact}\n\n`;
+            message += `Design Requirements:\n${requirements}`;
+            
+            if (extraInfo) {
+                message += `\n\nExtra Info: ${extraInfo}`;
+            }
+
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        window.onload = init;
+      </script>
 </body>
 </html>
+    <
+
+   
