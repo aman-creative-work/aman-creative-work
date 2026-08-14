@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Creative Design Services</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f6f7fb;color:#171717}
+header{background:#111827;color:#fff;text-align:center;padding:34px 18px}header h1{margin:0 0 8px;font-size:28px}header p{margin:0;color:#d1d5db}
+.wrap{max-width:950px;margin:auto;padding:18px}.title{font-size:21px;margin:25px 0 13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.card,.box{background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.card h3{margin:0 0 10px}.card button,.serviceBtn,.submit{width:100%;border:0;border-radius:9px;padding:12px;font-weight:700;cursor:pointer}
+.card button{background:#111827;color:#fff}
+#step2,#step3{display:none}.back{background:#e5e7eb!important;color:#111!important;margin-bottom:10px}
+.serviceGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}
+.serviceBtn{background:#fff;border:1px solid #d1d5db;color:#111;text-align:left}
+.serviceBtn:hover{border-color:#111827}.serviceBtn span{float:right;font-weight:700}
+.packageGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}.package{border:1px solid #ddd;border-radius:12px;padding:14px;background:#fff}.package button{margin-top:10px}
+label{display:block;font-weight:700;margin:12px 0 6px}input,textarea,select{width:100%;padding:12px;border:1px solid #d1d5db;border-radius:9px;font-size:15px}textarea{min-height:105px}
+.submit{background:#25D366;color:#fff;font-size:16px;margin-top:15px}.small{font-size:13px;color:#6b7280}
+footer{text-align:center;padding:25px;color:#777}
+</style>
+</head>
+<body>
+<header>
+<h1>🎨 Creative Design Services</h1>
+<p>Logo • Poster • Thumbnail • Social Media • Business Designs</p>
+</header>
+
+<div class="wrap">
+<section id="step1">
+<h2 class="title">1. अपनी Category चुनें</h2>
+<div class="grid" id="categories"></div>
+</section>
+
+<section id="step2" class="box">
+<button class="back" onclick="backToCategories()">← Category बदलें</button>
+<h2 class="title" id="categoryTitle"></h2>
+<p class="small">अब बताइए आपको इस category में क्या बनवाना है:</p>
+<div class="serviceGrid" id="services"></div>
+</section>
+
+<section id="step3" class="box">
+<button class="back" onclick="backToServices()">← Design बदलें</button>
+<h2 class="title">3. अपनी Design की जानकारी दें</h2>
+<p class="small" id="chosen"></p>
+
+<label>आपका Mobile Number / Gmail ID</label>
+<input id="contact" placeholder="Mobile number या Gmail ID">
+
+<label>Design में क्या चाहिए?</label>
+<textarea id="details" placeholder="नाम, दुकान/बिजनेस का नाम, text, colour, photo, size या जैसा design चाहिए वह लिखें..."></textarea>
+
+<button class="submit" onclick="sendWhatsApp()">WhatsApp पर भेजें</button>
+<p class="small">आपकी जानकारी WhatsApp message के रूप में भेजी जाएगी।</p>
+</section>
+
+<h2 class="title">🔥 Packages</h2>
+<div class="packageGrid">
+<div class="package"><b>Starter</b><h2>₹199</h2>3 Designs<br>कोई भी Category<br>1 Revision<button class="serviceBtn" onclick="choosePackage('Starter Package ₹199')">यह Package चुनें</button></div>
+<div class="package"><b>Business</b><h2>₹499</h2>10 Designs<br>Poster + Post + Status<br>2 Revisions<button class="serviceBtn" onclick="choosePackage('Business Package ₹499')">यह Package चुनें</button></div>
+<div class="package"><b>Monthly</b><h2>₹699</h2>15 Designs<br>Poster + Post + Status + Reels Cover<br>पूरे महीने के लिए<button class="serviceBtn" onclick="choosePackage('Monthly Package ₹699')">यह Package चुनें</button></div>
+</div>
+</div>
+
+<footer>© 2026 Creative Design Services</footer>
+
+<script>
+const WHATSAPP_NUMBER="91XXXXXXXXXX";
+
+const data={
+"💇 Salon":[["Poster","₹79"],["Offer/Festival Poster","₹99"],["Instagram Post","₹59"],["Story/WhatsApp Status","₹49"],["Rate Card","₹149"],["Logo","₹199"],["Visiting Card","₹99"],["Monthly 10 Designs","₹499"]],
+"👕 Clothing Shop":[["Product Post","₹59"],["Sale/Offer Poster","₹99"],["Festival Poster","₹99"],["WhatsApp Status","₹49"],["Catalogue","₹299"],["Logo","₹199"],["Visiting Card","₹99"],["Monthly 10 Designs","₹499"]],
+"📸 Photographer":[["Photography Poster","₹99"],["Wedding/Pre-Wedding Poster","₹149"],["Package/Rate Card","₹149"],["Instagram Post","₹79"],["Reels Cover","₹59"],["WhatsApp Status","₹49"],["Logo","₹299"],["Visiting Card","₹99"],["Monthly 10 Designs","₹699"]],
+"💄 Makeup Artist":[["Makeup Poster","₹99"],["Bridal Package","₹149"],["Offer Poster","₹99"],["Instagram Post","₹59"],["Story/Status","₹49"],["Reels Cover","₹59"],["Logo","₹199"],["Visiting Card","₹99"],["Price List","₹149"],["Monthly 10 Designs","₹499"]],
+"🍔 Restaurant / Café":[["Food Post","₹59"],["Offer Poster","₹99"],["Combo Poster","₹99"],["Festival Poster","₹99"],["WhatsApp Status","₹49"],["Menu Card","₹199"],["Logo","₹199"],["Visiting Card","₹99"],["Food Catalogue","₹299"],["Monthly 15 Designs","₹699"]],
+"🏋️ Gym":[["Offer Poster","₹99"],["Membership Poster","₹99"],["Transformation Post","₹79"],["Instagram Post","₹59"],["Story/Status","₹49"],["Rate Card","₹149"],["Logo","₹199"],["Visiting Card","₹99"],["Membership Card","₹99"],["Monthly 10 Designs","₹499"]],
+"📚 Coaching":[["Admission Poster","₹99"],["New Batch Poster","₹99"],["Result/Topper Poster","₹79"],["Instagram Post","₹59"],["WhatsApp Status","₹49"],["Flyer","₹149"],["Logo","₹199"],["Admission Form","₹149"],["Banner/Flex","₹199"],["Monthly 10 Designs","₹499"]],
+"🎥 Local Creator / YouTuber":[["YouTube Thumbnail","₹59"],["Premium Thumbnail","₹99"],["Shorts/Reels Cover","₹49"],["YouTube Banner","₹149"],["Channel Logo","₹199"],["Video Promotion Poster","₹79"],["Profile Picture","₹99"],["Instagram Post","₹59"],["Monthly 10 Thumbnails","₹499"],["Monthly 20 Thumbnails","₹799"]],
+"📱 Mobile Shop":[["Mobile Offer Poster","₹99"],["New Mobile Post","₹79"],["EMI/Exchange Poster","₹99"],["Festival Sale Poster","₹99"],["WhatsApp Status","₹49"],["Product Catalogue","₹299"],["Logo","₹199"],["Visiting Card","₹99"],["Price List","₹149"],["Banner/Flex","₹199"],["Monthly 15 Designs","₹699"]]
+};
+
+let selectedCategory="",selectedService="",selectedPrice="";
+
+const categories=document.getElementById("categories");
+Object.keys(data).forEach(cat=>{
+const c=document.createElement("div");c.className="card";
+c.innerHTML=`<h3>${cat}</h3><p class="small">${data[cat].length} services available</p><button onclick="chooseCategory('${cat.replace(/'/g,"\\'")}')">Category चुनें →</button>`;
+categories.appendChild(c);
+});
+
+function chooseCategory(cat){
+selectedCategory=cat;
+document.getElementById("categoryTitle").textContent=cat;
+const box=document.getElementById("services");box.innerHTML="";
+data[cat].forEach(([name,price])=>{
+const b=document.createElement("button");b.className="serviceBtn";
+b.innerHTML=`${name}<span>${price}</span>`;
+b.onclick=()=>chooseService(name,price);
+box.appendChild(b);
+});
+document.getElementById("step1").style.display="none";
+document.getElementById("step2").style.display="block";
+window.scrollTo({top:0,behavior:"smooth"});
+}
+function chooseService(name,price){
+selectedService=name;selectedPrice=price;
+document.getElementById("chosen").textContent=`Category: ${selectedCategory}  •  Design: ${name}  •  Price: ${price}`;
+document.getElementById("step2").style.display="none";
+document.getElementById("step3").style.display="block";
+window.scrollTo({top:0,behavior:"smooth"});
+}
+function choosePackage(name){
+selectedCategory="Package";selectedService=name;selectedPrice="";
+document.getElementById("chosen").textContent=`Selected: ${name}`;
+document.getElementById("step1").style.display="none";
+document.getElementById("step2").style.display="none";
+document.getElementById("step3").style.display="block";
+window.scrollTo({top:0,behavior:"smooth"});
+}
+function backToCategories(){
+document.getElementById("step2").style.display="none";
+document.getElementById("step1").style.display="block";
+window.scrollTo({top:0,behavior:"smooth"});
+}
+function backToServices(){
+document.getElementById("step3").style.display="none";
+document.getElementById("step2").style.display="block";
+window.scrollTo({top:0,behavior:"smooth"});
+}
+function sendWhatsApp(){
+if(WHATSAPP_NUMBER.includes("X")){alert("पहले code में अपना WhatsApp number डालें।");return}
+const contact=document.getElementById("contact").value.trim(),details=document.getElementById("details").value.trim();
+if(!contact||!details){alert("Mobile/Gmail और Design की जानकारी भरें।");return}
+const text=`Hello, mujhe design banwana hai.
+
+Category: ${selectedCategory}
+Design: ${selectedService}
+Price: ${selectedPrice||"Package"}
+Mobile/Gmail: ${contact}
+Details: ${details}`;
+window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`,"_blank");
+}
+</script>
+</body>
+</html>
